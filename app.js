@@ -1,5 +1,6 @@
 //const hapi = require('hapi');
 import hapi from 'hapi';
+import routes from './routes/';
 require('dotenv').load();
 //console.log(hapi);
 
@@ -19,19 +20,7 @@ if (err) {
     }
 });
 // Add the route
-server.route({
-    method: 'GET',
-    path:'/', 
-    handler: function (request, reply) {
-        let sql= "select * from users";
-        request.pg.client.query(sql, function(err, result){
-            
-            let data = result.rows;
-            return reply(data);
-        })
-        //return reply({message: 'hello world', status:200});
-    }
-});
+server.route(routes);
 
 // Start the server
 server.start((err) => {
